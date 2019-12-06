@@ -8,7 +8,7 @@ Desenvolvido por
 Tutorial de criação deste app: http://bit.ly/2jXXU7Q
 
 <p align="center">
-    <img src="https://i.ibb.co/0jNgx17/Whats-App-Image-2019-12-06-at-14-09-09.jpg" width="800"/>
+    <img src="https://i.ibb.co/zXYj3m6/Whats-App-Image-2019-12-06-at-14-16-03.jpg" width="800"/>
 </p>
 
 ## Como clonar e importar
