@@ -54,7 +54,7 @@ class TaskHelper {
   Future<Task> getById(int id) async {
     Database database = await db;
     List<Map> maps = await database.query('task',
-        columns: ['id', 'title', 'description', 'isDone'],
+        columns: ['id', 'title', 'description', 'isDone', 'prioridade'],
         where: 'id = ?',
         whereArgs: [id]);
 
@@ -77,6 +77,7 @@ class TaskHelper {
 
   Future<int> update(Task task) async {
     Database database = await db;
+
     return await database
         .update('task', task.toMap(), where: 'id = ?', whereArgs: [task.id]);
   }

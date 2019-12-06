@@ -4,6 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:todo_list/helpers/task_helper.dart';
 import 'package:todo_list/models/task.dart';
 import 'package:todo_list/views/task_dialog.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,6 +15,9 @@ class _HomePageState extends State<HomePage> {
   List<Task> _taskList = [];
   TaskHelper _helper = TaskHelper();
   bool _loading = true;
+  double _indicator = 0.0;
+  double _percent = 0.0;
+  int _checkedTasks = 0;
 
   @override
   void initState() {
@@ -26,10 +30,24 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  double getPercentage() {
+    return _indicator * 100;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Lista de Tarefas')),
+      appBar: AppBar(
+        title: Text('Lista de Tarefas'),
+        actions: <Widget>[
+          new CircularPercentIndicator(
+            percent: _indicator,
+            center: new Text(" ${getPercentage().toStringAsPrecision(3)}%"),
+            backgroundColor: Colors.deepPurple,
+            progressColor: Colors.white, radius: 50.0,
+          ),
+        ],
+      ),
       floatingActionButton:
           FloatingActionButton(child: Icon(Icons.add), onPressed: _addNewTask),
       body: _buildTaskList(),
@@ -42,9 +60,14 @@ class _HomePageState extends State<HomePage> {
         child: _loading ? CircularProgressIndicator() : Text("Sem tarefas!"),
       );
     } else {
-      return ListView.builder(
-        itemBuilder: _buildTaskItemSlidable,
+      return ListView.separated(
+        separatorBuilder: (
+          BuildContext context,
+          int index,
+        ) =>
+            Divider(),
         itemCount: _taskList.length,
+        itemBuilder: _buildTaskItemSlidable,
       );
     }
   }
@@ -54,9 +77,26 @@ class _HomePageState extends State<HomePage> {
     return CheckboxListTile(
       value: task.isDone,
       title: Text(task.title),
-      subtitle: Text(task.description),
+      subtitle: Text(task.descricao),
+      secondary: Text(task.prioridade.toString()),
       onChanged: (bool isChecked) {
         setState(() {
+          _percent = 1.0 / _taskList.length;
+          if (isChecked) {
+            _checkedTasks++;
+            if (_indicator + _percent > 1.0) {
+              _indicator = 1.0;
+            } else
+              _indicator += _percent;
+          } else if (isChecked == false) {
+            _checkedTasks--;
+            if (_checkedTasks == 0) {
+              _indicator = 0.0;
+            } else if (_indicator - _percent < 0.0) {
+              _indicator = 0.0;
+            } else
+              _indicator -= _percent;
+          }
           task.isDone = isChecked;
         });
 
@@ -85,6 +125,11 @@ class _HomePageState extends State<HomePage> {
           icon: Icons.delete,
           onTap: () {
             _deleteTask(deletedTask: _taskList[index], index: index);
+            if (_indicator - _percent < 0.0) {
+              _indicator = 0.0;
+            } else
+              _indicator -= _percent;
+            _checkedTasks--;
           },
         ),
       ],
@@ -122,7 +167,7 @@ class _HomePageState extends State<HomePage> {
 
     Flushbar(
       title: "Exclusão de tarefas",
-      message: "Tarefa \"${deletedTask.title}\" removida.",
+      message: "Tarefa ${deletedTask.title} removida.",
       margin: EdgeInsets.all(8),
       borderRadius: 8,
       duration: Duration(seconds: 3),

@@ -2,10 +2,13 @@
 
 Aplicativo para gerenciar as tarefas do dia-a-dia criado para disciplina de Programação Mobile.
 
+Desenvolvido por
+- Leonardo Longo 0040481821022
+
 Tutorial de criação deste app: http://bit.ly/2jXXU7Q
 
 <p align="center">
-    <img src="https://miro.medium.com/max/1440/1*oUhhTFGunBMuh4Av-7rR7A.png" width="800"/>
+    <img src="https://i.ibb.co/0jNgx17/Whats-App-Image-2019-12-06-at-14-09-09.jpg" width="800"/>
 </p>
 
 ## Como clonar e importar
@@ -16,11 +19,11 @@ Tutorial de criação deste app: http://bit.ly/2jXXU7Q
 
 ## Desafios
 
--   Na lista de tarefas, adicionar divisões entre as linhas (use [ListView.separated](https://api.flutter.dev/flutter/widgets/ListView/ListView.separated.html))
--   Adicionar validações no cadastro de uma atividade (lembre-se que é preciso utilizar o widget [TextFormField](https://api.flutter.dev/flutter/material/TextFormField-class.html) para isso)
--   Campo descrição precisar aceitar múltiplas linhas
--   Criar um campo para nível de prioridades que aceita valores entre 1 (baixa prioridade) e 5 (alta prioridade). Representar isso no card da forma como achar mais interessante.
--   Adicionar um [PercentIndicator](https://pub.dev/packages/percent_indicator) circular na barra de navegação para indicar a porcentagem de tarefas concluídas
+- [x]  Na lista de tarefas, adicionar divisões entre as linhas (use [ListView.separated](https://api.flutter.dev/flutter/widgets/ListView/ListView.separated.html))
+- [x]  Adicionar validações no cadastro de uma atividade (lembre-se que é preciso utilizar o widget [TextFormField](https://api.flutter.dev/flutter/material/TextFormField-class.html) para isso)
+- [x]  Campo descrição precisar aceitar múltiplas linhas
+- [x]  Criar um campo para nível de prioridades que aceita valores entre 1 (baixa prioridade) e 5 (alta prioridade). Representar isso no card da forma como achar mais interessante.
+- [x]  Adicionar um [PercentIndicator](https://pub.dev/packages/percent_indicator) circular na barra de navegação para indicar a porcentagem de tarefas concluídas
 
 ## Licença
 
